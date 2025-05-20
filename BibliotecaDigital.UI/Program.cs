@@ -11,7 +11,7 @@ class Program
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("=== Sistema de Usuários ===");
+            Console.WriteLine("=== Biblioteca Digital ===");
             Console.WriteLine("1 - Fazer Login");
             Console.WriteLine("2 - Cadastrar Novo Usuário");
             Console.WriteLine("0 - Sair");
