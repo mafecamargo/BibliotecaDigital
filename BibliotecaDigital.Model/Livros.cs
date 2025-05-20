@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaDigital.Model
 {
-    internal class Livros
+    public class Livros
     {
         public int Id_Livro { get; set; }
 

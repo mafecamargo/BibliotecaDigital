@@ -16,5 +16,7 @@ namespace BibliotecaDigital.Model
 
         public DateOnly DtNasc_Usuario { get; set; }
 
+        public string senha {  get; set; }
+
     }
 }
