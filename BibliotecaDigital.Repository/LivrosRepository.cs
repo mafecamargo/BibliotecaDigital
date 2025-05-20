@@ -12,15 +12,16 @@ namespace BibliotecaDigital.Repository
     {
         private readonly string _connectionString = "User Id=RM550366;Password=280105;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));";
 
+
         public void Inserir(Livros livro)
         {
             using (OracleConnection connection = new OracleConnection(_connectionString))
             {
-                string query = @"INSERT INTO livros_FIAP (id_livro, nome_livro, autor_livro, idadeclass_livro, qtd_livro)
-                                 VALUES (:id, :nome, :autor, :idadeclass, :qtd)";
+                string query = @"INSERT INTO livros_fiap 
+                         (nome_livro, autor_livro, idadeclass_livro, qtd_livro)
+                         VALUES (:nome, :autor, :idadeclass, :qtd)";
 
                 OracleCommand cmd = new OracleCommand(query, connection);
-                cmd.Parameters.Add(new OracleParameter("id", livro.Id_Livro));
                 cmd.Parameters.Add(new OracleParameter("nome", livro.Nome_Livro));
                 cmd.Parameters.Add(new OracleParameter("autor", livro.Autor_Livro));
                 cmd.Parameters.Add(new OracleParameter("idadeclass", livro.IdadeClass_Livro));
@@ -65,7 +66,7 @@ namespace BibliotecaDigital.Repository
 
             using (OracleConnection connection = new OracleConnection(_connectionString))
             {
-                string query = "SELECT * FROM livros_FIAP";
+                string query = "SELECT * FROM livros_FIAP ORDER BY id_livro";
 
                 OracleCommand cmd = new OracleCommand(query, connection);
                 connection.Open();

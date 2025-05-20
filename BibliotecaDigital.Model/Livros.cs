@@ -17,5 +17,6 @@ namespace BibliotecaDigital.Model
         public int IdadeClass_Livro { get; set; }
 
         public int Qtd_Livro { get; set; }
+
     }
 }

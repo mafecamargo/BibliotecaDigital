@@ -13,6 +13,9 @@ namespace BibliotecaDigital.Model
         public DateOnly Dt_Emprestimo { get; set; }
 
         public DateOnly Dt_Devolucao { get; set; }
+        public int Id_Usuario { get; set; }
+
+        public int Id_Livro { get; set; }
 
     }
 }

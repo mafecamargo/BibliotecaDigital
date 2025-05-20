@@ -2,19 +2,30 @@
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 public class UsuariosRepository
 {
-    private readonly string _connectionString = "User Id=RM550366;Password=280105;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));";
+    private readonly string _connectionString =
+        "User Id=RM550366;Password=280105;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));";
+
+    private int ObterProximoId()
+    {
+        using (OracleConnection connection = new OracleConnection(_connectionString))
+        {
+            connection.Open();
+            string query = "SELECT seq_usuarios_fiap.NEXTVAL FROM dual";
+
+            OracleCommand cmd = new OracleCommand(query, connection);
+            int proximoId = Convert.ToInt32(cmd.ExecuteScalar());
+
+            return proximoId;
+        }
+    }
 
     public void Inserir(Usuarios usuario)
     {
+        usuario.Id_Usuario = ObterProximoId();
+
         using (OracleConnection connection = new OracleConnection(_connectionString))
         {
             string query = @"INSERT INTO usuarios_FIAP (id_usuario, nomeusuario, emailusuario, dtnasc_usuario, senha)
@@ -79,7 +90,8 @@ public class UsuariosRepository
                     Id_Usuario = Convert.ToInt32(reader["id_usuario"]),
                     Nome_Usuario = reader["nomeusuario"].ToString(),
                     Email_Usuario = reader["emailusuario"].ToString(),
-                    DtNasc_Usuario = DateOnly.FromDateTime(Convert.ToDateTime(reader["dtnasc_usuario"]))
+                    DtNasc_Usuario = DateOnly.FromDateTime(Convert.ToDateTime(reader["dtnasc_usuario"])),
+                    senha = reader["senha"].ToString()
                 });
             }
         }
